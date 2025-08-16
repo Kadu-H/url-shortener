@@ -1,0 +1,25 @@
+{
+  "name": "url-shortner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kadu-H/url-shortener.git"
+  },
+  "author": "Kdu.dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kadu-H/url-shortener/issues"
+  },
+  "homepage": "https://github.com/Kadu-H/url-shortener#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "fastify": "^5.5.0"
+  }
+}
