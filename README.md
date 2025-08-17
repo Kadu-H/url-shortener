@@ -25,7 +25,7 @@ Este projeto é um encurtador de URLs desenvolvido com o objetivo de aprimorar m
 
 4. **Rode as migrations no containner do servidor:**
    ```sh
-   docker-compose exec server sh
+   docker compose exec server sh
    ```
    Dentro do terminal do servidor rode:
    ```sh
@@ -72,3 +72,13 @@ Este projeto é um encurtador de URLs desenvolvido com o objetivo de aprimorar m
     "url": "http://example.com"
   }
   ```
+
+## Tecnologias
+
+- `Node.Js`: Runtime para roda o codigo JavaScript
+- `Fastify`: Framework web para Node.js
+- `PrismaORM`: ORM, ele intermedia a comunicação do codigo com o banco de dados
+- `Postgres`: Banco de dados relacional
+- `Redis`: Banco de dados em memoria, extremamente rapido, consegui reduzir o tempo de busca por uma url já consultada em menos de 1 hora pela metade
+- `Dotenv`: Arquivo onde conseguimos armazenar variaveis de ambiente em aplicações
+- `Dockerfile` e `docker-compose.yml`: Configuração dos containers onde fazemos o ecosistema do codigo todo rodar

@@ -1,8 +1,19 @@
 import prisma from "../db/prisma.js";
+import redis from "../redis/redis.js";
 import { gerarId } from "../utils/id.js";
 
 export async function getUrlById(id) {
-  return await prisma.urlShortner.findUnique({ where: { id } });
+  const urlCached = await redis.get(id);
+  if (urlCached){
+    return { id, url: urlCached };
+  }
+
+  const urlShort = await prisma.urlShortner.findUnique({ where: { id } });
+  if(urlShort){
+    await redis.set(id, urlShort.url, 'EX', 3600);
+  }
+
+  return urlShort;
 }
 
 export async function deleteUrlById(id) {
