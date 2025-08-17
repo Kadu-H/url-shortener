@@ -1,61 +1,33 @@
-import { UrlShortner } from "../models/urlModel.js";
+import { getUrlById, deleteUrlById, createUrlShortner, updateUrlShortnerById } from "../models/urlModel.js";
 
-var dbUrl = [];
-
-const createUrlShortnerObject = (url, database) => {
-    const urlShortObject = new UrlShortner(url);
-    
-    const urlShortObjectExist = database.find(item => item.id === urlShortObject.id);
-    if (urlShortObjectExist) {
-        return createUrlShortnerObject(url, database);
+export const createUrlShortHandler = async (req, res) => {
+    const urlShort = await createUrlShortner(req.body.url);
+    if (!urlShort) {
+        return res.status(500).send({ error: "Create error in url" })
     }
-
-    return urlShortObject;
+    res.status(201).send(urlShort);
 }
 
-export const createUrlShortner = (req, res) => {
-    const urlForShortner = req.body.url;
-    const urlShortObject = createUrlShortnerObject(urlForShortner, dbUrl);
-
-    dbUrl.push(urlShortObject);
-
-    res.send(urlShortObject);
+export const getUrlShortnerHandler = async (req, res) => {
+    const urlShort = await getUrlById(req.params.id);
+    if (!urlShort) {
+        return res.status(404).send({ error: "Not found" });
+    }
+    res.status(200).send(urlShort);
 }
 
-export const getUrlFromShortner = (req, res) => {
-    const id = req.params.id;
-
-    const urlShortObject = dbUrl.find(item => item.id === id);
-    if (!urlShortObject) {
-        return res.status(404).send("Está URL ainda não foi encontrada!");
+export const deleteUrlShortHandler = async (req, res) => {
+    const urlShort = await deleteUrlById(req.params.id);
+    if (!urlShort) {
+        return res.status(404).send({ error: "Not found" });
     }
-
-    res.send(urlShortObject);
+    res.status(200).send(urlShort);
 }
 
-export const deleteUrlFromShortner = (req, res) => {
-    const id = req.params.id;
-
-    const index = dbUrl.findIndex(item => item.id === id);
-    if (index === -1) {
-        return res.status(404).send("Está URL ainda não foi encontrada!");
+export const updateUrlShortHandler = async (req, res) => {
+    const urlShort = await updateUrlShortnerById(req.params.id, req.body.url);
+    if (!urlShort) {
+        return res.status(404).send({ error: "Not found" });
     }
-
-    const [removedUrlShortner] = dbUrl.splice(index, 1);
-
-    res.send(removedUrlShortner);
-}
-
-export const updateUrlFromShortner = (req, res) => {
-    const id = req.params.id;
-    const url = req.body.url;
-
-    const index = dbUrl.findIndex(item => item.id === id);
-    if (index === -1) {
-        return res.status(404).send("Está URL ainda não foi encontrada!");
-    }
-
-    dbUrl[index].url = url;
-
-    res.send(dbUrl[index]);
+    res.status(200).send(urlShort);
 }

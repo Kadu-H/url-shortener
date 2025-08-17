@@ -1,8 +1,8 @@
-import { createUrlShortner, getUrlFromShortner, deleteUrlFromShortner, updateUrlFromShortner } from "../controllers/urlController.js";
+import { createUrlShortHandler, deleteUrlShortHandler, getUrlShortnerHandler, updateUrlShortHandler } from "../controllers/urlController.js";
 
 export default function urlRoutes(server) {
-    server.post("/", createUrlShortner);
-    server.get("/:id", getUrlFromShortner);
-    server.delete("/:id", deleteUrlFromShortner);
-    server.patch("/:id", updateUrlFromShortner);
+    server.post("/", createUrlShortHandler);
+    server.get("/:id", getUrlShortnerHandler);
+    server.delete("/:id", deleteUrlShortHandler);
+    server.patch("/:id", updateUrlShortHandler);
 }
