@@ -4,12 +4,12 @@ import { gerarId } from "../utils/id.js";
 
 export async function getUrlById(id) {
   const urlCached = await redis.get(id);
-  if (urlCached){
+  if (urlCached) {
     return { id, url: urlCached };
   }
 
   const urlShort = await prisma.urlShortner.findUnique({ where: { id } });
-  if(urlShort){
+  if (urlShort) {
     await redis.set(id, urlShort.url, 'EX', 3600);
   }
 
