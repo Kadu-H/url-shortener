@@ -1,4 +1,5 @@
 import fastify from "fastify";
+import fastifyCors from "@fastify/cors";
 
 import urlRoutes from "./src/routes/urlroutes.js";
 import redis from "./src/redis/redis.js";
@@ -7,6 +8,7 @@ import "dotenv/config";
 
 const server = fastify();
 
+server.register(fastifyCors);
 server.register(urlRoutes);
 
 async function startServer() {

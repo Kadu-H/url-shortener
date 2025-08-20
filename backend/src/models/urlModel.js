@@ -1,6 +1,7 @@
 import prisma from "../db/prisma.js";
 import redis from "../redis/redis.js";
 import { gerarId } from "../utils/id.js";
+import { isUrl } from "../utils/url.js";
 
 export async function getUrlById(id) {
   const urlCached = await redis.get(id);
@@ -21,6 +22,10 @@ export async function deleteUrlById(id) {
 }
 
 export async function createUrlShortner(url) {
+
+  if (!isUrl(url)) {
+    return;
+  }
 
   const id = await GenerateUniqueIdUrlShort();
 
