@@ -40,7 +40,6 @@ Este projeto é um encurtador de URLs desenvolvido com o objetivo de aprimorar m
 - **Payload:**
   ```json
   {
-    "id": "id",
     "url": "http://example.com"
   }
   ```
